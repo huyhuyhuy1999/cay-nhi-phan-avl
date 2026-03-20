@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trình diễn cây AVL trực quan</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-glow page-glow--left"></div>
+  <div class="page-glow page-glow--right"></div>
+
+  <main class="app-shell" id="app">
+    <section class="workspace">
+      <aside class="panel panel--sidebar">
+        <div class="panel__header">
+          <h2>Kịch bản mẫu</h2>
+          <p>Chọn case để trình chiếu các phép chèn, xóa và quay cây.</p>
+        </div>
+        <div class="scenario-list" id="scenarioList"></div>
+
+        <section class="legend-card">
+          <h3>Chú giải</h3>
+          <div class="legend-row">
+            <span class="legend-dot legend-dot--focus"></span>
+            <span>Node đang được xử lý</span>
+          </div>
+          <div class="legend-row">
+            <span class="legend-dot legend-dot--insert"></span>
+            <span>Node vừa được chèn</span>
+          </div>
+          <div class="legend-row">
+            <span class="legend-dot legend-dot--rotate"></span>
+            <span>Node tham gia xoay</span>
+          </div>
+          <div class="legend-row">
+            <span class="legend-chip">h</span>
+            <span>Chiều cao node</span>
+          </div>
+          <div class="legend-row">
+            <span class="legend-chip">bf</span>
+            <span>Hệ số cân bằng</span>
+          </div>
+        </section>
+      </aside>
+
+      <section class="panel panel--stage">
+        <div class="stage-toolbar">
+          <div class="toolbar-actions">
+            <button type="button" class="toolbar-button" id="prevButton">Prev</button>
+            <button type="button" class="toolbar-button toolbar-button--primary" id="playButton">Play</button>
+            <button type="button" class="toolbar-button" id="pauseButton">Pause</button>
+            <button type="button" class="toolbar-button" id="nextButton">Next</button>
+            <button type="button" class="toolbar-button" id="resetButton">Reset</button>
+          </div>
+
+          <label class="speed-control" for="speedSelect">
+            <span>Tốc độ</span>
+            <select id="speedSelect">
+              <option value="1600">Chậm</option>
+              <option value="1100" selected>Vừa</option>
+              <option value="700">Nhanh</option>
+              <option value="420">Rất nhanh</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="stage-meta">
+          <div class="meta-pill">
+            <span>Kịch bản</span>
+            <strong id="scenarioTitle">Đang tải...</strong>
+          </div>
+          <div class="meta-pill">
+            <span>Case</span>
+            <strong id="caseBadge">Sẵn sàng</strong>
+          </div>
+          <div class="meta-pill">
+            <span>Bước</span>
+            <strong id="stepCounter">0 / 0</strong>
+          </div>
+          <div class="meta-pill">
+            <span>Chiều cao cây</span>
+            <strong id="treeHeight">0</strong>
+          </div>
+          <div class="meta-pill">
+            <span>Số node</span>
+            <strong id="nodeCount">0</strong>
+          </div>
+        </div>
+
+        <div class="tree-stage">
+          <svg id="treeSvg" class="tree-svg" viewBox="0 0 960 580" preserveAspectRatio="xMidYMid meet" aria-label="Cây AVL trực quan"></svg>
+          <div class="tree-stage__empty" id="emptyState">Đang chuẩn bị mô phỏng...</div>
+        </div>
+
+        <div class="stage-caption">
+          <div>
+            <p class="stage-caption__label" id="stepType">Sẵn sàng</p>
+            <p class="stage-caption__message" id="stepMessage">
+              Chọn hoặc đổi kịch bản bên trái để xem AVL cân bằng lại qua từng bước.
+            </p>
+          </div>
+          <div class="stage-caption__tip">
+            Tập trung vào nhãn <strong>LL / RR / LR / RL</strong> và chỉ số <strong>bf</strong>
+            để giải thích lý do hệ thống quyết định quay cây.
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel panel--details">
+        <section class="detail-card">
+          <div class="panel__header panel__header--tight">
+            <h2>Code AVL đang chạy</h2>
+            <p>Các dòng được tô sáng sẽ khớp với bước hiện tại.</p>
+          </div>
+          <div class="code-panel" id="codePanel"></div>
+        </section>
+
+        <section class="detail-card detail-card--logs">
+          <div class="panel__header panel__header--tight">
+            <h2>Nhật ký debug</h2>
+            <p>Diễn giải ngắn gọn để bạn nói theo khi trình chiếu.</p>
+          </div>
+          <div class="log-panel" id="logPanel"></div>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
